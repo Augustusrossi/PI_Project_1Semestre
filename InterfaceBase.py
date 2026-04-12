@@ -29,4 +29,4 @@ else:
             elif prioridade <= 7:
                 print("Urgente")
             else:
-                print("crítico") 
+                print("crítico")
