@@ -1,3 +1,7 @@
+#imports: 
+import requerimentos
+
+
 def umTexto (solicitacao, mensagem, valido):
     digitouDireito=False
     while not digitouDireito:
@@ -21,7 +25,7 @@ def opcaoEscolhida (mnu):
         posicao+=1
 
     print()
-    return umTexto('Qual é a sua opção? ', 'Opção inválida', opcoesValidas)
+    return umTexto('Escolha uma opção para efetuar o cadastro! \nQual a opção que deseja? ', 'Opção inválida', opcoesValidas)
 
 
 menuLogin = [
@@ -39,10 +43,10 @@ menuPaciente = [
 ]
 
 menuMedico = [
-    'Cadastrar novo médico', \
+    'Cadastrar um novo médico no sistema', \
     'Vizualisar pacientes relacionados',\
     'Vizualisar requerimentos relacionados',\
-    'Mudar status do requerimento',\
+    'Mudar status do requerimento de um paciente específico',\
     'Voltar'
     
 ]
@@ -92,33 +96,52 @@ def chamarMenuMedico():
 
 #funções paciente:
 def cadastrarPaciente():
+    print('\n------------------------')
     print("cadastro de paciente")
     
 def solicitarAtendimento():
-    print("Solicitação de atendimento / cadastro do requerimento")
+    print('\n------------------------')
+    print("Solicitação de atendimento / cadastro do requerimento:\n")
+    
+    prioridade = ((requerimentos.dor() * 5) + (requerimentos.tempo() * 3) + (requerimentos.desconforto() * 2)) / 10
+
+    if prioridade < 5:
+        print("Sem urgência")
+    elif prioridade <= 7:
+        print("Urgente")
+    else:
+        print("Crítico")
+
     
 def visualizarStatus():
+    print('\n------------------------')
     print("Visualização do status do paciente")
 
 def listarHistorico ():
+    print('\n------------------------')
     print("Listagem de últimas consultas realizadas para aquele paciente")
     
 def fechaConexao():
+    print('\n------------------------')
     print("Conexão encerrada com sucesso!")
 
 
 
 #funções médico:
 def cadastrarMedico ():
+    print('\n------------------------')
     print("Cadastro de médico")
     
 def visualizarPacientes ():
+    print('\n------------------------')
     print("Listagem dos pacientes relacionados - nome ...")
 
 def visualizarRequerimentos ():
+    print('\n------------------------')
     print("Visualização dos requerimentos relacionados")
     
 def atualizarStatus ():
+    print('\n------------------------')
     print("Alteração do status de um requerimento")
 
 
