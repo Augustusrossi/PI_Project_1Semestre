@@ -1,4 +1,5 @@
 from datetime import date, datetime
+import chamadaBanco
 
 def nome(): 
     valor_verificado = False
@@ -34,21 +35,6 @@ def nome():
                 
         return nome + " " + sobrenome
         
-
-# def nome_completo():
-#     valor_verificado = False
-#     while valor_verificado == False:
-#         try: 
-#             nome_completo = input("Nome completo do paciente: ")
-                
-#         except:
-            
-#             valor_verificado = False
-#             print("Entrada inválida! Digite apenas letras (sem números ou espaços).")
-#         else: 
-#             print("else")
-
-
 def documento_rg():
     valor_verificado = False
     while valor_verificado == False:
@@ -88,27 +74,27 @@ def telefone_contato():
                 return telefone_contato
             else:
                 print("Quantidade de carácteres inválido: ")
-        
+
+
+data_br = datetime.now().strftime("%Y/%m/%d - %H:%M:%S")
     
-
-        
-
-
-
-class Paciente: 
-    def __init__(self, nome, documento_rg, contato, data_insercao):    
-        self.nome = nome
-        self.documento_rg = documento_rg
-        self.contato= contato
-        self.data_insercao= data_insercao
+def insercao_paciente():
+    comando=f"insert into paciente (nome, rg, telefone, data_cadastro) values ('{nome()}','{documento_rg()}', '{telefone_contato()}', '{data_br}')"
+    conexao=chamadaBanco.obtem_conexao("127.0.0.1","root","123456","sistemaHospital")
+    cursor=conexao.cursor()
+    cursor.execute(comando)
+    conexao.commit()
+    print("Paciente cadastrado com sucessor")
     
-data_br = datetime.now().strftime("%d/%m/%Y - %H:%M:%S")
     
-pessoa1 = Paciente(nome(), documento_rg(), telefone_contato(), data_br)
-
-
+def listar_pacientes():
+    comando = f"select * from paciente"
+    conexao=chamadaBanco.obtem_conexao("127.0.0.1","root","123456","sistemaHospital")
+    cursor=conexao.cursor()
+    cursor.execute(comando)
+    linhas=cursor.fetchall()
     
-print(pessoa1.nome)
-print(pessoa1.documento_rg)
-print(pessoa1.contato)
-print(pessoa1.data_insercao)
+    atual = 0
+    while atual<len(linhas):
+        print(linhas[atual][0]," | ",linhas[atual][1]," | ",linhas[atual][2]," | ", linhas[atual][3]," | ",linhas[atual][4])
+        atual+=1

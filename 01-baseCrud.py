@@ -1,5 +1,5 @@
 #imports: 
-import requerimentos
+import requerimentos, paciente, chamadaBanco
 
 
 def umTexto (solicitacao, mensagem, valido):
@@ -29,8 +29,8 @@ def opcaoEscolhida (mnu):
 
 
 menuLogin = [
-    'Paciente',\
-    'Médico',\
+    'Acessar menu do Paciente',\
+    'Acessar menu do Médico',\
     'Sair do programa'
 ]
 
@@ -39,6 +39,8 @@ menuPaciente = [
     'Solicitar um atendimento',\
     'Vizualisar status do atendimento',\
     'Listar histórico dos atendimentos',\
+    'Listar todos os pacientes cadastrados',\
+    'Procurar um paciente pelo nome',\
     'Voltar'
 ]
 
@@ -65,7 +67,11 @@ def chamarMenuPaciente():
             visualizarStatus()
         elif opcao==4:
             listarHistorico()
-        else: # if opcao==5:
+        elif opcao==5:
+            listarPacientes()
+        elif opcao==6:
+            procurarPacienteNome()
+        else: # if opcao==7:
             fechaConexao()
             desejaSairDoPrograma=True
 
@@ -81,7 +87,7 @@ def chamarMenuMedico():
         if opcao==1:
             cadastrarMedico()
         elif opcao==2:
-            visualizarPacientes()
+            visualizarPacientesRelacionados()
         elif opcao==3:
             visualizarRequerimentos()
         elif opcao==4:
@@ -97,11 +103,12 @@ def chamarMenuMedico():
 #funções paciente:
 def cadastrarPaciente():
     print('\n------------------------')
-    print("cadastro de paciente")
+    print("--- Inserir um paciente no sistema! ---")
+    paciente.insercao_paciente()
     
 def solicitarAtendimento():
     print('\n------------------------')
-    print("Solicitação de atendimento / cadastro do requerimento:\n")
+    print("--- Solicitação de atendimento / cadastro do requerimento --- !")
     
     prioridade = ((requerimentos.dor() * 5) + (requerimentos.tempo() * 3) + (requerimentos.desconforto() * 2)) / 10
 
@@ -112,37 +119,45 @@ def solicitarAtendimento():
     else:
         print("Crítico")
 
+def listarPacientes():
+    print('\n------------------------')
+    print("Visualização de todos os pacientes")
+    paciente.listar_pacientes()
+    
+def procurarPacienteNome():
+    print('\n------------------------')
+    print("--- Procurar um paciente pelo nome do mesmo! ---")
     
 def visualizarStatus():
     print('\n------------------------')
-    print("Visualização do status do paciente")
+    print("--- Visualização do status do paciente! ---")
 
 def listarHistorico ():
     print('\n------------------------')
-    print("Listagem de últimas consultas realizadas para aquele paciente")
+    print("--- Listagem de últimas consultas realizadas para aquele paciente! ---")
     
 def fechaConexao():
     print('\n------------------------')
-    print("Conexão encerrada com sucesso!")
+    print("--- Conexão encerrada com sucesso! ---")
 
 
 
 #funções médico:
 def cadastrarMedico ():
     print('\n------------------------')
-    print("Cadastro de médico")
+    print("--- Cadastro de médico! ---")
     
-def visualizarPacientes ():
+def visualizarPacientesRelacionados ():
     print('\n------------------------')
-    print("Listagem dos pacientes relacionados - nome ...")
+    print("--- Listagem dos pacientes relacionados - nome! ...")
 
 def visualizarRequerimentos ():
     print('\n------------------------')
-    print("Visualização dos requerimentos relacionados")
+    print("--- Visualização dos requerimentos relacionados! ---")
     
 def atualizarStatus ():
     print('\n------------------------')
-    print("Alteração do status de um requerimento")
+    print("--- Alteração do status de um requerimento! ---")
 
 
 desejaSairDoPrograma=False

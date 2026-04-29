@@ -1,5 +1,6 @@
-    
-    
+import paciente
+
+
 def desconforto():
     valor_verificado = False
     while valor_verificado == False:
@@ -54,6 +55,16 @@ def tempo():
                 print("Opção para o tempo deve ser entre 1 e 5. \nDigite Novamente| \n")
                 print("----------------------------------\n")
 
-    
+
+id_paciente = paciente.listar_pacientes()
+
+def insercao_requerimento():
+    comando=f"insert into paciente (nome, rg, telefone, data_cadastro) values ('{nome()}','{documento_rg()}', '{telefone_contato()}', '{data_br}')"
+    conexao=chamadaBanco.obtem_conexao("127.0.0.1","root","123456","sistemaHospital")
+    cursor=conexao.cursor()
+    cursor.execute(comando)
+    conexao.commit()
+    print("Paciente cadastrado com sucessor")
+
 
 print("=== PROGRAMA DE PRIORIDADE MÉDICA ===")
