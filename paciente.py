@@ -98,3 +98,26 @@ def listar_pacientes():
     while atual<len(linhas):
         print(linhas[atual][0]," | ",linhas[atual][1]," | ",linhas[atual][2]," | ", linhas[atual][3]," | ",linhas[atual][4])
         atual+=1
+
+def listar_consultas_por_nome(nome_paciente):
+    comando = f"""
+        SELECT r.id_requerimento, p.nome AS paciente, m.nome AS medico,
+               r.descricao, r.data_hora_abertura, r.data_hora_fechamento,
+               r.estagio, r.prioridade
+        FROM requerimentos r
+        JOIN Paciente p ON r.id_paciente = p.id_paciente
+        JOIN medico m ON r.id_medico = m.crm
+        WHERE p.nome = '{nome_paciente}';
+    """
+
+    conexao = chamadaBanco.obtem_conexao("127.0.0.1", "root", "123456", "sistemaHospital")
+    cursor = conexao.cursor()
+    cursor.execute(comando)
+    linhas = cursor.fetchall()
+
+    for consulta in linhas:
+        print(
+            f"Consulta {consulta[0]} | Paciente: {consulta[1]} | Médico: {consulta[2]} | "
+            f"Descrição: {consulta[3]} | Abertura: {consulta[4]} | Fechamento: {consulta[5]} | "
+            f"Estágio: {consulta[6]} | Prioridade: {consulta[7]}"
+        )
