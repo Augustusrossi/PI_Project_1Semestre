@@ -102,22 +102,27 @@ def chamarMenuMedico():
 
 #funções paciente:
 def cadastrarPaciente():
-    print('\n------------------------')
-    print("--- Inserir um paciente no sistema! ---")
+    print('\n------------------------\n')
+    print("\n--- Inserir um paciente no sistema! ---")
     paciente.insercao_paciente()
     
 def solicitarAtendimento():
-    print('\n------------------------')
-    print("--- Solicitação de atendimento / cadastro do requerimento --- !")
+    print('\n------------------------\n ')
+    print("\n--- Solicitação de atendimento / cadastro do requerimento --- !")
     
-    prioridade = ((requerimentos.dor() * 5) + (requerimentos.tempo() * 3) + (requerimentos.desconforto() * 2)) / 10
-
-    if prioridade < 5:
-        print("Sem urgência")
-    elif prioridade <= 7:
-        print("Urgente")
-    else:
-        print("Crítico")
+    while True:
+        try:
+            id_paciente = int(input("Digite o id do paciente que corresponderá ao requerimento dele: "))
+            
+            if(paciente.procurar_paciente(id_paciente,0) == False):
+                print("Paciente não existente para esse valor de identificação (id_paciente)!\n")
+                continue
+            
+        except ValueError:
+            print("Valor inválido, apenas números são aceitos. \nDigite novamente, por favor!\n")
+        else:
+            requerimentos.insercao_requerimento(id_paciente)
+            break
 
 def listarPacientes():
     print('\n------------------------')
@@ -126,8 +131,22 @@ def listarPacientes():
     
 def procurarPacienteNome():
     print('\n------------------------')
-    print("--- Procurar um paciente pelo nome do mesmo! ---")
+    print("\n--- Procurar um paciente pelo nome do mesmo! ---")
     
+    while True:
+        try:
+            id_paciente = int(input("Digite o id do paciente que corresponderá ao requerimento dele: "))
+            
+            if(paciente.procurar_paciente(id_paciente,0) == False):
+                print("Paciente não existente para esse valor de identificação (id_paciente)!\n")
+                continue
+            
+        except ValueError:
+            print("Valor inválido, apenas números são aceitos. \nDigite novamente, por favor!\n")
+        else:
+            print(paciente.procurar_paciente(id_paciente, None))
+            break
+        
 def visualizarStatus():
     print('\n------------------------')
     print("--- Visualização do status do paciente! ---")

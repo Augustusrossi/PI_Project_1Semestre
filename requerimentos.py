@@ -1,4 +1,4 @@
-import paciente
+import paciente, imports
 
 
 def desconforto():
@@ -40,7 +40,7 @@ def tempo():
     valor_verificado = False
     while valor_verificado == False:
         try:
-            tempo = int(input("\n Quanto tempo está com os sintomas? \n 1- Menos de 1 semana; \n 2- Entre 1 e 2 semanas; \n Entre 2 e 3 semanas; \n 4- Entre 3 e 4 semanas; \n 5- Por volta de 5 ou mais semanas; \n"))
+            tempo = int(input("\nQuanto tempo está com os sintomas? \n1- Menos de 1 semana; \n2- Entre 1 e 2 semanas; \nEntre 2 e 3 semanas; \n4- Entre 3 e 4 semanas; \n5- Por volta de 5 ou mais semanas; \n"))
 
 
         except ValueError:
@@ -49,22 +49,66 @@ def tempo():
         else:
             if tempo >= 1 and tempo <= 5:
                 valor_verificado = True
-                return tempo
+                
+                tempo_text = ''
+                
+                if(tempo == 1):
+                    tempo_text = 'menos de 1 semana.'
+                elif(tempo == 2):
+                    tempo_text = 'cerca de 1 e 2 semanas.'
+                elif(tempo == 3):
+                    tempo_text = 'cerca de 2 e 3 semanas.'
+                elif(tempo == 4):
+                    tempo_text = 'cerca de 3 e 4 semanas.'
+                else:
+                    tempo_text = 'um tempo maior que 5 semanas'
+                
+                result = [tempo, tempo_text]
+                return result
             else: 
                 valor_verificado = False
                 print("Opção para o tempo deve ser entre 1 e 5. \nDigite Novamente| \n")
                 print("----------------------------------\n")
 
+def calculo_prioridade(valor_dor, valor_tempo, valor_desconforto):
+    prioridade = ((valor_dor * 5) + (valor_tempo * 3) + (valor_desconforto) * 2) / 10
+    prioridade_text = ''
 
-id_paciente = paciente.listar_pacientes()
+    if prioridade < 5:
+        prioridade_text = 'Sem urgência'
+    elif prioridade <= 7:
+        prioridade_text = 'Urgente'
+    else:
+        prioridade_text = 'Crítico'
 
-def insercao_requerimento():
-    comando=f"insert into paciente (nome, rg, telefone, data_cadastro) values ('{nome()}','{documento_rg()}', '{telefone_contato()}', '{data_br}')"
-    conexao=chamadaBanco.obtem_conexao("127.0.0.1","root","123456","sistemaHospital")
+        
+    return [prioridade, prioridade_text]
+
+
+#id_paciente = paciente.procurar_paciente(1,0);
+#nome_paciente = paciente.procurar_paciente(1,1);
+data_br = imports.datetime.now().strftime("%Y/%m/%d - %H:%M:%S")
+
+
+def insercao_requerimento(id_paciente_escolhido):
+    id_paciente = paciente.procurar_paciente(id_paciente_escolhido,0);
+    nome_paciente = paciente.procurar_paciente(id_paciente_escolhido,1);
+    
+    print("ID:", id_paciente)
+    print("Nome:", nome_paciente)
+    
+    valor_dor = dor()
+    valor_desconforto = desconforto()
+    valor_tempo, text_tempo = tempo()
+    
+    
+    comando=f"insert into requerimentos (id_medico, id_paciente, descricao, data_hora_abertura, data_hora_fechamento, status, prioridade) values (NULL, {id_paciente}, 'O paciente, {nome_paciente}, apresenta um desconforto de grau: {valor_desconforto} e uma dor de grau: {valor_dor} por {text_tempo}', '{data_br}', NULL,'aberto',{calculo_prioridade(valor_dor, valor_tempo, valor_desconforto)[0]}) "
+    
+    conexao=imports.chamadaBanco.obtem_conexao("127.0.0.1","root","123456","sistemaHospital")
     cursor=conexao.cursor()
     cursor.execute(comando)
     conexao.commit()
-    print("Paciente cadastrado com sucessor")
+    print("Solicitação cadastrada com sucessor")
 
 
 print("=== PROGRAMA DE PRIORIDADE MÉDICA ===")

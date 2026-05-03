@@ -1,5 +1,4 @@
-from datetime import date, datetime
-import chamadaBanco
+import chamadaBanco, imports
 
 def nome(): 
     valor_verificado = False
@@ -76,7 +75,7 @@ def telefone_contato():
                 print("Quantidade de carácteres inválido: ")
 
 
-data_br = datetime.now().strftime("%Y/%m/%d - %H:%M:%S")
+data_br = imports.datetime.now().strftime("%Y/%m/%d - %H:%M:%S")
     
 def insercao_paciente():
     comando=f"insert into paciente (nome, rg, telefone, data_cadastro) values ('{nome()}','{documento_rg()}', '{telefone_contato()}', '{data_br}')"
@@ -98,3 +97,21 @@ def listar_pacientes():
     while atual<len(linhas):
         print(linhas[atual][0]," | ",linhas[atual][1]," | ",linhas[atual][2]," | ", linhas[atual][3]," | ",linhas[atual][4])
         atual+=1
+        
+        
+        
+def procurar_paciente(id,posicao_info):
+    comando = f"select id_paciente, nome, rg, telefone, DATE_FORMAT(data_cadastro, '%d/%m/%Y %H:%i:%s') as data_formatada from paciente where id_paciente = {id}"
+    conexao=imports.chamadaBanco.obtem_conexao("127.0.0.1","root","123456","sistemaHospital")
+    cursor=conexao.cursor()
+    cursor.execute(comando)
+    linhas=cursor.fetchall()
+    
+    #data = linhas[atual][4]
+        
+    if linhas == []: return False
+    
+    if posicao_info == None:
+        return (linhas[0])
+    else:
+        return (linhas[0][posicao_info])
