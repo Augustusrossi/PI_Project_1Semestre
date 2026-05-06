@@ -132,9 +132,31 @@ def visualizarStatus():
     print('\n------------------------')
     print("--- Visualização do status do paciente! ---")
 
-def listarHistorico ():
+def listarHistorico (nome_paciente):
     print('\n------------------------')
     print("--- Listagem de últimas consultas realizadas para aquele paciente! ---")
+    comando = f"""
+        SELECT r.id_requerimento, p.nome AS paciente, m.nome AS medico,
+               r.descricao, r.data_hora_abertura, r.data_hora_fechamento,
+               r.estagio, r.prioridade
+        FROM requerimentos r
+        JOIN Paciente p ON r.id_paciente = p.id_paciente
+        JOIN medico m ON r.id_medico = m.crm
+        WHERE p.nome = '{nome_paciente}';
+    """
+
+    conexao = chamadaBanco.obtem_conexao("127.0.0.1", "root", "123456", "sistemaHospital")
+    cursor = conexao.cursor()
+    cursor.execute(comando)
+    linhas = cursor.fetchall()
+
+    for consulta in linhas:
+        print(
+            f"Consulta {consulta[0]} | Paciente: {consulta[1]} | Médico: {consulta[2]} | "
+            f"Descrição: {consulta[3]} | Abertura: {consulta[4]} | Fechamento: {consulta[5]} | "
+            f"Estágio: {consulta[6]} | Prioridade: {consulta[7]}"
+        )
+
     
 def fechaConexao():
     print('\n------------------------')
