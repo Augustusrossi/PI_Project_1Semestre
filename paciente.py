@@ -1,8 +1,8 @@
-import chamadaBanco, imports
+import imports
 
 def nome(): 
-    valor_verificado = False
-    while valor_verificado == False:
+    
+    while True:
         
         #remove espaços iníciais e finais 
         nome_completo = input("Nome do paciente: ").strip()
@@ -23,16 +23,20 @@ def nome():
             if len(nome_completo_partes) == 1:
                 nome = nome_completo_partes[0]
                 sobrenome = ""
+                print("Nome do paciente cadastrado com sucesso\n")
+
             else:
                 nome = nome_completo_partes[0]
                 #join -> juntar elementos de uma lista em uma string
                 sobrenome = " ".join(nome_completo_partes[1:])
                 print("Nome do paciente cadastrado com sucesso\n")
                 
+            return nome + " " + sobrenome
         else:
             print("Entrada inválida! Digite apenas letras.")
-                
-        return nome + " " + sobrenome
+            continue
+    
+        
         
 def documento_rg():
     valor_verificado = False
@@ -79,16 +83,16 @@ data_br = imports.datetime.now().strftime("%Y/%m/%d - %H:%M:%S")
     
 def insercao_paciente():
     comando=f"insert into paciente (nome, rg, telefone, data_cadastro) values ('{nome()}','{documento_rg()}', '{telefone_contato()}', '{data_br}')"
-    conexao=chamadaBanco.obtem_conexao("127.0.0.1","root","123456","sistemaHospital")
+    conexao=imports.chamadaBanco.obtem_conexao()
     cursor=conexao.cursor()
     cursor.execute(comando)
     conexao.commit()
-    print("Paciente cadastrado com sucessor")
+    print("Paciente cadastrado com sucesso")
     
     
 def listar_pacientes():
     comando = f"select * from paciente"
-    conexao=chamadaBanco.obtem_conexao("127.0.0.1","root","123456","sistemaHospital")
+    conexao=imports.chamadaBanco.obtem_conexao()
     cursor=conexao.cursor()
     cursor.execute(comando)
     linhas=cursor.fetchall()
@@ -96,13 +100,12 @@ def listar_pacientes():
     atual = 0
     while atual<len(linhas):
         print(linhas[atual][0]," | ",linhas[atual][1]," | ",linhas[atual][2]," | ", linhas[atual][3]," | ",linhas[atual][4])
-        atual+=1
-        
+        atual+=1    
         
         
 def procurar_paciente(id,posicao_info):
     comando = f"select id_paciente, nome, rg, telefone, DATE_FORMAT(data_cadastro, '%d/%m/%Y %H:%i:%s') as data_formatada from paciente where id_paciente = {id}"
-    conexao=imports.chamadaBanco.obtem_conexao("127.0.0.1","root","123456","sistemaHospital")
+    conexao=imports.chamadaBanco.obtem_conexao()
     cursor=conexao.cursor()
     cursor.execute(comando)
     linhas=cursor.fetchall()
@@ -115,3 +118,45 @@ def procurar_paciente(id,posicao_info):
         return (linhas[0])
     else:
         return (linhas[0][posicao_info])
+    
+    
+
+#listar histórico 
+def listar_historico(id_paciente):
+    
+    comando = f"SELECT pac.nome, pac.rg, req.* FROM requerimentos req INNER JOIN paciente pac on pac.id_paciente = req.id_paciente WHERE req.id_paciente = {id_paciente} order by data_hora_fechamento desc, data_hora_abertura"
+    
+    conexao=imports.chamadaBanco.obtem_conexao()
+    cursor=conexao.cursor()
+    cursor.execute(comando)
+    linhas=cursor.fetchall()
+    
+    atual = 0;
+    print("\nNome:  |  RG:  |  id do Requerimento:  |  id do Médico:  |  id do Paciente:  |  Descrição:  |  Data de criação do Requerimento:  |  Data de finalização do Requerimento  |  Status:  |  Nível de prioridade: ")
+    print('------------------------------------------')
+    while atual < len(linhas):
+        print(linhas[atual][0], "|", linhas[atual][1], "|", linhas[atual][2], "|", linhas[atual][3], "|", linhas[atual][4], "|", linhas[atual][5], "|", linhas[atual][6], "|", linhas[atual][7], "|", linhas[atual][8], "|", linhas[atual][9])
+        print('------------------------------------------')
+        atual += 1
+        
+
+def visualizar_status(id_requerimento):
+    comando = f"SELECT pac.nome, pac.rg, req.id_requerimento, req.status, req.prioridade FROM requerimentos req INNER JOIN paciente pac on pac.id_paciente = req.id_paciente  WHERE id_requerimento = {id_requerimento}"
+
+    conexao = imports.chamadaBanco.obtem_conexao()
+    cursor = conexao.cursor()
+    cursor.execute(comando)
+    linhas = cursor.fetchall()
+    
+    
+    atual = 0 
+    print("\nNome:  |  RG:  |  id do Requerimento:  |  Status:  |  Nível de prioridade: ")
+    print('------------------------------------------')
+    while atual < len(linhas):
+        print(linhas[atual][0], "|", linhas[atual][1], "|", linhas[atual][2], "|", linhas[atual][3], "|", linhas[atual][4])
+        print('------------------------------------------')
+
+        atual +=1     
+    
+    return linhas
+
