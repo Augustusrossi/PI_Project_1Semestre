@@ -51,6 +51,9 @@ def crm():
         
 
 def cadastrar_medicos():
+    print("\n" + "─"*45)
+    print(f"{'NOVO CADASTRO DE MÉDICO':^45}")
+    print("─"*45 + "\n")
     comando=f"insert into medico (crm, nome, email, funcao) values ('{crm()}','{nome()}','{email()}', '{funcao()}')"
     conexao=imports.chamadaBanco.obtem_conexao()
     cursor=conexao.cursor()
@@ -61,6 +64,9 @@ def cadastrar_medicos():
     
 
 def listar_medicos():
+    print("\n" + "─"*45)
+    print(f"{'CORPO CLÍNICO CADASTRADO':^45}")
+    print("─"*45 + "\n")
     conexao = imports.chamadaBanco.obtem_conexao()
     cursor = conexao.cursor()
     comando = f"SELECT * FROM medico"
@@ -80,7 +86,9 @@ def listar_medicos():
 
 
 def buscar_medico(id_medico):
-    
+    print("\n" + "─"*45)
+    print(f"{'CONSULTA DE CADASTRO MÉDICO':^45}")
+    print("─"*45 + "\n")
     conexao = imports.chamadaBanco.obtem_conexao()
     cursor = conexao.cursor()
 
@@ -132,4 +140,3 @@ def buscar_medico(id_medico):
         medico = cursor.fetchall()
 
         return medico[0]
-            

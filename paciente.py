@@ -82,6 +82,9 @@ def telefone_contato():
 data_br = imports.datetime.now().strftime("%Y/%m/%d - %H:%M:%S")
     
 def insercao_paciente():
+    print("\n" + "="*40)
+    print(f"{'CADASTRO DE NOVO PACIENTE':^40}")
+    print("="*40,'\n')
     comando=f"insert into paciente (nome, rg, telefone, data_cadastro) values ('{nome()}','{documento_rg()}', '{telefone_contato()}', '{data_br}')"
     conexao=imports.chamadaBanco.obtem_conexao()
     cursor=conexao.cursor()
@@ -91,6 +94,9 @@ def insercao_paciente():
     
     
 def listar_pacientes():
+    print("\n" + "="*50)
+    print(f"{'PACIENTES CADASTRADOS NO SISTEMA':^50}")
+    print("="*50,'\n')
     comando = f"select * from paciente"
     conexao=imports.chamadaBanco.obtem_conexao()
     cursor=conexao.cursor()
@@ -98,6 +104,7 @@ def listar_pacientes():
     linhas=cursor.fetchall()
     
     atual = 0
+    print("ID |     Nome     |      RG      |    Telefone    |   Data de Cadastro   ")
     while atual<len(linhas):
         print(linhas[atual][0]," | ",linhas[atual][1]," | ",linhas[atual][2]," | ", linhas[atual][3]," | ",linhas[atual][4])
         atual+=1    
@@ -123,7 +130,9 @@ def procurar_paciente(id,posicao_info):
 
 #listar histórico 
 def listar_historico(id_paciente):
-    
+    print("\n" + "="*55)
+    print(f"{'HISTÓRICO COMPLETO DO PACIENTE':^55}")
+    print("="*55,'\n')
     comando = f"SELECT pac.nome, pac.rg, req.* FROM requerimentos req INNER JOIN paciente pac on pac.id_paciente = req.id_paciente WHERE req.id_paciente = {id_paciente} order by data_hora_fechamento desc, data_hora_abertura"
     
     conexao=imports.chamadaBanco.obtem_conexao()
@@ -141,6 +150,9 @@ def listar_historico(id_paciente):
         
 
 def visualizar_status(id_requerimento):
+    print("\n" + "="*45)
+    print(f"{'STATUS ATUAL DO REQUERIMENTO':^45}")
+    print("="*45,'\n') 
     comando = f"SELECT pac.nome, pac.rg, req.id_requerimento, req.status, req.prioridade FROM requerimentos req INNER JOIN paciente pac on pac.id_paciente = req.id_paciente  WHERE id_requerimento = {id_requerimento}"
 
     conexao = imports.chamadaBanco.obtem_conexao()
