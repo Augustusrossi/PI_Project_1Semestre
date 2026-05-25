@@ -42,17 +42,17 @@ Durante o desenvolvimento do projeto, foram aplicados conceitos como:
 
 ## Funcionalidades principais
 
-- Interface/Front gráfica; *(em processo de decisão)*
-- Cadastro de pacientes; **ok**
-- Cadastro de médicos; **ok**
-- Busca de pacientes; **ok**
-- Busca de médicos; **ok**
-- Gerenciamento de requerimentos; **ok**
-- Controle de atendimentos; **ok**
-- Alteração de status das solicitações; *(em processo)*
-- Integração com banco de dados MySQL; **ok**
-- Operações básicas de CRUD; **ok**
-- Estatísticas visuais para análise; *(em processo)*
+- Interface/Front gráfica; 
+- Cadastro de pacientes; 
+- Cadastro de médicos; 
+- Busca de pacientes; 
+- Busca de médicos; 
+- Gerenciamento de requerimentos; 
+- Controle de atendimentos; 
+- Alteração de status das solicitações; 
+- Integração com banco de dados MySQL; 
+- Operações básicas de CRUD; 
+- Estatísticas visuais para análise; 
 
 ---
 
