@@ -95,6 +95,7 @@ def listar_pacientes():
     linhas=cursor.fetchall()
     
     atual = 0
+<<<<<<< Updated upstream
     while atual<len(linhas):
         print(linhas[atual][0]," | ",linhas[atual][1]," | ",linhas[atual][2]," | ", linhas[atual][3]," | ",linhas[atual][4])
         atual+=1
@@ -109,11 +110,81 @@ def listar_consultas_por_nome(nome_paciente):
         JOIN medico m ON r.id_medico = m.crm
         WHERE p.nome = '{nome_paciente}';
     """
+=======
+    print("-" * 90)
+    print(f"{'ID':<5}| {'Nome':<25}| {'RG':<12}| {'Telefone':<15}| {'Data de Cadastro':<25}")
+    print("-" * 90)
+    
+    
+    while atual<len(linhas):
+        print(
+            f"{linhas[atual][0]:<5}| "
+            f"{linhas[atual][1]:<25}| "
+            f"{linhas[atual][2]:<12}| "
+            f"{linhas[atual][3]:<15}| "
+            f"{linhas[atual][4]}"
+        ) 
+        atual+=1
+        
+        
+def procurar_paciente(id,posicao_info):
+    comando = f"select id_paciente, nome, rg, telefone, DATE_FORMAT(data_cadastro, '%d/%m/%Y %H:%i:%s') as data_formatada from paciente where id_paciente = {id}"
+    conexao=imports.chamadaBanco.obtem_conexao()
+    cursor=conexao.cursor()
+    cursor.execute(comando)
+    linhas=cursor.fetchall()
+    
+    #data = linhas[atual][4]
+        
+    if linhas == []: return False
+    
+    if posicao_info == None:
+        return (linhas[0])
+    else:
+        return (linhas[0][posicao_info])
+    
+    
+
+#listar histórico 
+def listar_historico(id_paciente):
+    print("\n" + "="*55)
+    print(f"{'HISTÓRICO COMPLETO DO PACIENTE':^55}")
+    print("="*55,'\n')
+    comando = f"SELECT pac.nome, pac.rg, req.* FROM requerimentos req INNER JOIN paciente pac on pac.id_paciente = req.id_paciente WHERE req.id_paciente = {id_paciente} order by data_hora_fechamento desc, data_hora_abertura"
+    
+    conexao=imports.chamadaBanco.obtem_conexao()
+    cursor=conexao.cursor()
+    cursor.execute(comando)
+    linhas=cursor.fetchall()
+    
+    atual = 0;
+    print("-" * 180)
+    print(f"{'Nome':<25}| "f"{'RG':<12}| "f"{'ID Req.':<8}| "f"{'ID Méd.':<8}| "f"{'ID Pac.':<8}| "f"{'Data Abertura':<20}| "f"{'Data Fechamento':<20}| "f"{'Status':<12}| "f"{'Prioridade':<12}")
+    print("-" * 180)
+    while atual < len(linhas):
+        print(
+            f"{linhas[atual][0]:<25}| "
+            f"{linhas[atual][1]:<12}| "
+            f"{linhas[atual][2]:<8}| "
+            f"{str(linhas[atual][3]):<8}| "
+            f"{linhas[atual][4]:<8}| "
+            f"{str(linhas[atual][6]):<20}| "
+            f"{str(linhas[atual][7]):<20}| "
+            f"{linhas[atual][8]:<12}| "
+            f"{linhas[atual][9]:<12}"
+        )
+
+        print(f"Descrição: {linhas[atual][5]}")
+        print("-" * 180)
+        atual += 1
+        
+>>>>>>> Stashed changes
 
     conexao = chamadaBanco.obtem_conexao("127.0.0.1", "root", "123456", "sistemaHospital")
     cursor = conexao.cursor()
     cursor.execute(comando)
     linhas = cursor.fetchall()
+<<<<<<< Updated upstream
 
     for consulta in linhas:
         print(
@@ -121,3 +192,28 @@ def listar_consultas_por_nome(nome_paciente):
             f"Descrição: {consulta[3]} | Abertura: {consulta[4]} | Fechamento: {consulta[5]} | "
             f"Estágio: {consulta[6]} | Prioridade: {consulta[7]}"
         )
+=======
+    
+    
+    atual = 0 
+    print("-" * 90)
+    print(f"{'Nome':<25}| "f"{'RG':<12}| "f"{'ID Req.':<10}| "f"{'Status':<15}| "f"{'Prioridade':<15}")
+    print("-" * 90)
+    while atual < len(linhas):
+        print(
+            f"{linhas[atual][0]:<25}| "
+            f"{linhas[atual][1]:<12}| "
+            f"{linhas[atual][2]:<10}| "
+            f"{linhas[atual][3]:<15}| "
+            f"{linhas[atual][4]:<15}"
+        )
+
+        atual += 1
+
+        print("-" * 90)
+        atual +=1     
+    
+    return linhas
+
+#listar_pacientes()
+>>>>>>> Stashed changes
