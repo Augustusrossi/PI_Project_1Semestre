@@ -1,0 +1,103 @@
+----- MEDICO ------
+
+CREATE TABLE medico (
+    crm INT PRIMARY KEY,
+    nome VARCHAR(75) NOT NULL,
+    email VARCHAR(100),
+    funcao VARCHAR(50)
+);
+
+----- PACIENTE ------
+
+CREATE TABLE paciente (
+    id_paciente INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(120) NOT NULL,
+    rg VARCHAR(20),
+    descricao VARCHAR(200),
+    data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+----- REQUERIMENTOS -------
+
+CREATE TABLE requerimentos (
+    id_requerimento INT AUTO_INCREMENT PRIMARY KEY,
+    id_medico INT NOT NULL,
+    id_paciente INT NOT NULL,
+
+    descricao TEXT NOT NULL,
+
+    data_hora_abertura DATETIME DEFAULT CURRENT_TIMESTAMP,
+    data_hora_fechamento DATETIME NULL,
+
+    status VARCHAR(20),
+    prioridade VARCHAR(20),
+
+    FOREIGN KEY (id_medico) REFERENCES medico(crm),
+    FOREIGN KEY (id_paciente) REFERENCES paciente(id_paciente)
+);
+-- == FIM TABELAS == --
+
+-- INSERTS -- 
+-- MÉDICO-- 
+INSERT INTO medico (crm, nome, email, funcao) VALUES
+(101, 'Dr João', 'joao@email.com', 'Clínico Geral'),
+(102, 'Dra Ana', 'ana@email.com', 'Cardiologista'),
+(103, 'Dr Carlos', 'carlos@email.com', 'Ortopedista'),
+(104, 'Dra Beatriz', 'beatriz@email.com', 'Dermatologista'),
+(105, 'Dr Paulo', 'paulo@email.com', 'Neurologista'),
+(107, 'Dra Fernanda', 'fernanda@email.com', 'Psiquiatra');
+
+-- PACIENTE --
+INSERT INTO paciente (nome, rg, descricao) VALUES
+('Matheus', '45.555.147-x', 'Paciente em observação inicial'),
+('Lucas', '22.111.333-x', 'Quadro febril'),
+('Ana Clara', '33.444.555-x', 'Dor no joelho'),
+('João Pedro', '11.222.333-x', 'Pressão alta'),
+('Maria Eduarda', '44.555.666-x', 'Alergia na pele'),
+('Carlos Henrique', '55.666.777-x', 'Crises de ansiedade'),
+('Bruno Silva', '66.777.888-x', 'Enxaqueca persistente'),
+('Juliana Costa', '77.888.999-x', 'Fratura no braço'),
+('Felipe Souza', '88.999.000-x', 'Consulta de rotina'),
+('Camila Rocha', '99.000.111-x', 'Insônia prolongada');
+
+-- REQUERIMENTOS -- 
+INSERT INTO requerimentos (id_medico, id_paciente, descricao, status, prioridade) VALUES
+
+(101, 1, 'O paciente Matheus apresenta um desconforto de grau: 6 e uma dor de grau: 10 por 3 dias', 'aberta', 'urgente'),
+(102, 2, 'O paciente Lucas apresenta um desconforto de grau: 5 e uma dor de grau: 8 por 2 dias', 'em andamento', 'urgente'),
+(103, 3, 'O paciente Ana Clara apresenta um desconforto de grau: 4 e uma dor de grau: 7 por 5 dias', 'aberta', 'baixa'),
+(101, 4, 'O paciente João Pedro apresenta um desconforto de grau: 6 e uma dor de grau: 7 por 4 dias', 'finalizada', 'critico'),
+(104, 5, 'O paciente Maria Eduarda apresenta um desconforto de grau: 3 e uma dor de grau: 5 por 1 dia', 'em andamento', 'baixa'),
+(107, 6, 'O paciente Carlos Henrique apresenta um desconforto de grau: 5 e uma dor de grau: 7 por 6 dias', 'aberta', 'urgente'),
+(105, 7, 'O paciente Bruno Silva apresenta um desconforto de grau: 7 e uma dor de grau: 9 por 3 dias', 'em andamento', 'critico'),
+(103, 8, 'O paciente Juliana Costa apresenta um desconforto de grau: 8 e uma dor de grau: 9 por 1 dia', 'aberta', 'critico'),
+(102, 9, 'O paciente Felipe Souza apresenta um desconforto de grau: 1 e uma dor de grau: 1 por rotina', 'finalizada', 'baixa'),
+(107, 10, 'O paciente Camila Rocha apresenta um desconforto de grau: 4 e uma dor de grau: 6 por 7 dias', 'em andamento', 'baixa');
+
+-- FIM INSERTS -- 
+
+SELECT 
+    r.id_medico AS crm,
+    r.id_paciente,
+    p.nome AS paciente,
+    r.descricao,
+    r.status,
+    r.prioridade
+FROM requerimentos r
+JOIN paciente p 
+    ON p.id_paciente = r.id_paciente
+WHERE r.id_medico = 101
+ORDER BY 
+    CASE 
+        WHEN r.prioridade = 'critico' THEN 1
+        WHEN r.prioridade = 'urgente' THEN 2
+        ELSE 3
+    END;
+SELECT crm, nome FROM medico;
+
+SELECT * 
+FROM requerimentos 
+ORDER BY id_requerimento DESC 
+LIMIT 1;
+
+SELECT * FROM requerimentos;
