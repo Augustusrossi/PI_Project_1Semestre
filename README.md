@@ -63,6 +63,9 @@ pip install mysql-connector-python matplotlib
 **password:** Doti_100
 
 #### 2. Clonar o projeto da branch main
+```
+git clone https://github.com/Augustusrossi/PI_Project_1Semestre.git
+```
 
 #### 3. Inicializar o projeto na IDE desejada
 ```
@@ -97,9 +100,9 @@ Index.py  (entrada principal)
 
 ## Regras de Prioridade das Solicitações
 Foi elaborado uma média ponderada onde cada campo no cadastro de solicitações tem um peso específico:
-- Dor (peso: 5)
-- Desconforto (peso: 2)
-- Tempo (peso: 3)
+- Dor
+- Desconforto
+- Tempo
 
 ### Cálculo:
 RESULTADO = ( (dor X 5) + (desconforto X 2) + (tempo X 3) ) / 10
