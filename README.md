@@ -132,6 +132,8 @@ PI_Project_1Semestre/
 ├── Index.py              # Ponto de entrada; inicializa GUI e menu principal
 │
 ├── README.md             # Documentação principal do projeto
+|
+├── codicosBanco.sql             # Códigos para criação das tabelas
 │
 ├── chamadaBanco.py       # Conexão e comunicação com o banco de dados MySQL
 │
