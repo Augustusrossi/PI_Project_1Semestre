@@ -21,23 +21,27 @@ O principal objetivo deste projeto é aplicar, na teoria e na prática, os conce
 ## Integrantes da Equipe
 | Nome Completo | RA |
 | :--- | ---: |
-| Augustus K. Rossi | 26001089 |
-| Matheus Neves | 22019901 |
+| Augustus Klingbeil Rossi | 26001089 |
+| Diego dos Santos Duque | 26005557 |
 | Gabriel Almeida Fransiozi | 26006944 |
+| Kauan Silva Cabrera | 26007624 |
+| Matheus Neves | 22019901 |
+
+
 
 
 ## Tecnologias e Versões Utilizadas
 
 | Tecnologia | Versão | Finalidade |
 | :--- | :---: | ---: |
-| Python |  | Linguagem principal do backend |
-| MySQL |  | Banco de dados relacional |
-| mysql-connector-python |  | Driver de conexão Python <-> MySQL |
-| Git |  | Controle de versão |
-| GitHub |  | Hospedagem do repositório e gestão do projeto |
-| Trello |  | Gestão de tarefas e sprints da equipe |
-| FortiClient VPN |  | Acesso à rede interna da PUC-Campinas |
-| VS Code |  | IDE principal de desenvolvimento |
+| Python | 3.14.5 | Linguagem principal do backend |
+| MySQL | 8.0.20 | Banco de dados relacional |
+| mysql-connector-python | 9.7.0 | Driver de conexão Python <-> MySQL |
+| Git | 2.54.0 | Controle de versão |
+| GitHub | Uso online | Hospedagem do repositório e gestão do projeto |
+| Trello | Uso online | Gestão de tarefas e sprints da equipe |
+| FortiClient VPN | 7.4 | Acesso à rede interna da PUC-Campinas |
+| VS Code | 1.122.1 | IDE principal de desenvolvimento |
 
 ### Instalação das dependências Python
 ```
