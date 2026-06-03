@@ -4,8 +4,9 @@
 ## Descrição do projeto:
 O presente projeto consiste no desenvolvimento de um sistema de gerenciamento de consultas e atendimentos médicos, elaborado como parte das atividades acadêmicas da disciplina de Projeto Integrador do curso de Sistemas de Informação.
 A aplicação foi desenvolvida utilizando Python integrado ao banco de dados MySQL, permitindo o cadastro, gerenciamento e consulta de informações relacionadas a pacientes, médicos e requerimentos de atendimento.
-O sistema possibilita tanto a utilização de registros já existentes quanto a realização de novos cadastros, oferecendo uma estrutura funcional para o controle básico de um ambiente de pronto atendimento.
+O sistema possibilita tanto a utilização de registros já existentes quanto a realização de novos cadastros, oferecendo uma estrutura funcional para o controle básico de um ambiente de pronto atendimento. 
 
+<br>
 
 ## Objetivo do Projeto
 O principal objetivo deste projeto é aplicar, na teoria e na prática, os conceitos fundamentais de desenvolvimento de software e banco de dados, promovendo a experiência em trabalho em equipe e na construção de sistemas integrados.
@@ -17,6 +18,7 @@ O principal objetivo deste projeto é aplicar, na teoria e na prática, os conce
 -	Estruturação modular do sistema
 -	Organização e separação de responsabilidades no código entre os integrantes da equipe
 
+<br>
 
 ## Integrantes da Equipe
 | Nome Completo | RA |
@@ -27,8 +29,7 @@ O principal objetivo deste projeto é aplicar, na teoria e na prática, os conce
 | Kauan Silva Cabrera | 26007624 |
 | Matheus Neves | 22019901 |
 
-
-
+<br>
 
 ## Tecnologias e Versões Utilizadas
 
@@ -49,6 +50,7 @@ O principal objetivo deste projeto é aplicar, na teoria e na prática, os conce
 pip install mysql-connector-python matplotlib
 ```
 
+<br>
 
 ## Como Execuar o Projeto
 
@@ -61,20 +63,47 @@ pip install mysql-connector-python matplotlib
 
 ### Passo a Passo
 
-#### 1. Conectar à VPN
+#### Pela VPN da PUCCAMPINAS-SP:
+
+**1. Conectar à VPN**
 É necessário entrar na VPN da PUCCAMPINAS-SP com as seguintes credenciais:
 **user:** 26001089
 **password:** Doti_100
 
-#### 2. Clonar o projeto da branch main
+**2. Clonar o projeto da branch main**
 ```
 git clone https://github.com/Augustusrossi/PI_Project_1Semestre.git
 ```
 
-#### 3. Inicializar o projeto na IDE desejada
+**3. Inicializar o projeto na IDE desejada**
 ```
 python index.py
 ```
+<br>
+
+#### Criação do database local:
+
+
+**1. Criação do banco de dados**
+
+- Inicialize o comando na tela sql
+```
+CREATE DATABASE SISTEMAHOSPITAL;
+```
+- Abra o arquivo /_codigoBanco.sql_, copie e inicialize os códigos para criações das tabelas
+
+**2. Alteração no arquivo de conexão do banco de dados**
+- Abra o arquivo /_chamadaBanco.py_ e comente a função **obtemConexao()** que usa as credenciais da VPN
+- Descomente a função **obtemConexao()** que usa as credenciais _localhost_
+- Faças as devidas alterações na função descomentada:
+  - Altere os campos (host e password) para os correspondentes a sua máquina.
+
+**3. Inicializar o projeto na IDE desejada**
+```
+python index.py
+```
+
+<br>
 
 ## Fluxos de Funcionamento do Sistema
 
@@ -101,6 +130,7 @@ Index.py  (entrada principal)
 5. Após a consulta o status passa para "finalizado"
 6. Além disso a central de atendimento tem acesso a funções genéricas como listagem geral de pacientes, médicos e requerimentos, visualizações específicas ou gerais como no caso das estatísticas.
 
+<br>
 
 ## Regras de Prioridade das Solicitações
 Foi elaborado uma média ponderada onde cada campo no cadastro de solicitações tem um peso específico:
@@ -116,6 +146,8 @@ RESULTADO = ( (dor X 5) + (desconforto X 2) + (tempo X 3) ) / 10
 - **Urgente:** resultado >=5 && resultado < 8
 - **Crítico:** resultado >= 8
 
+<br>
+
 ## Gerenciamento do projeto
 O Trello foi utilizado como ferramenta de gestão das tarefas do projeto. As colunas do quadro seguiram a estrutura:
 -	Backlog — funcionalidades planejadas ainda não iniciadas
@@ -123,7 +155,9 @@ O Trello foi utilizado como ferramenta de gestão das tarefas do projeto. As col
 -	Em revisão — pull requests abertos aguardando code review
 -	Concluído — tarefas finalizadas e mescladas na branch principal
 
-##Estrutura do Projeto
+<br>
+
+## Estrutura do Projeto
 ```
 PI_Project_1Semestre/
 │
@@ -148,6 +182,8 @@ PI_Project_1Semestre/
 └── teste.py              # Testes e validações do sistema
 
 ```
+
+<br>
 
 ## Funcionalidade do Sistema
 -	Interface gráfica com Tkinter
