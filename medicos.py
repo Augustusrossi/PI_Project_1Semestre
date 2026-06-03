@@ -74,13 +74,20 @@ def listar_medicos():
     medicos = cursor.fetchall()
 
     print("\n=== LISTA DE MÉDICOS ===")
+    print("-" * 110)
+    print(f"{'ID':<5}| {'CRM':<20}| {'Nome':<30}| {'Email':<35}| {'Função':<15}")
+    print("-" * 110)
+    
     contador = 0
     while contador < len(medicos):
-        print(medicos[contador][0], "|", medicos[contador][1], "|", medicos[contador][2], "|", medicos[contador][3], "|", "(",medicos[contador][4],")")
-        
-        print('------------------------------------------')
-
-        contador+=1
+        print(
+            f"{medicos[contador][0]:<5}| "
+            f"{medicos[contador][1]:<20}| "
+            f"{medicos[contador][2]:<30}| "
+            f"{medicos[contador][3]:<35}| "
+            f"{medicos[contador][4]:<15}"
+        )
+        contador += 1
         
     return medicos
 

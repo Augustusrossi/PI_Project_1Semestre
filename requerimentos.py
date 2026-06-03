@@ -18,75 +18,6 @@ def inserir_dados_requerimento(valorMinino, valorMaximo):
                 print("Entrada inválida. Apenas números dentro do intervalo de", valorMinino, "e", valorMaximo,"!\nDigite Novamente| \n")
                 print("----------------------------------")
                 continue
-            
-# def desconforto():
-#     valor_verificado = False
-#     while valor_verificado == False:
-#         try:
-#             desconforto = int(input("\nDigite o nível de desconforto (1 a 5): "))
-#         except ValueError:
-#             print("Entrada inválida. Por favor, digite um número inteiro para o nível de desconforto. \nDigite Novamente| \n")
-#             print("----------------------------------")
-
-#         else:
-#             if desconforto >= 1 and desconforto <= 5:
-#                 valor_verificado = True
-#                 return desconforto
-#             else: 
-#                 valor_verificado = False
-#                 print("Nível de desconforto deve ser entre 1 e 5. \nDigite Novamente| \n")
-#                 print("----------------------------------")
-    
-# def dor():
-#     valor_verificado = False
-#     while valor_verificado == False:
-#         try:
-#             desconforto = int(input("Digite o nível de dor (1 a 10): "))
-#         except ValueError:
-#             print("Entrada inválida. Por favor, digite um número inteiro para o nível de dor. \nDigite Novamente| \n")
-#             print("----------------------------------")
-#         else:
-#             if desconforto >= 1 and desconforto <= 10:
-#                 valor_verificado = True
-#                 return desconforto
-#             else: 
-#                 valor_verificado = False
-#                 print("Nível de dor deve ser entre 1 e 10. \nDigite Novamente| \n")
-#                 print("----------------------------------")
-
-# def tempo():
-#     valor_verificado = False
-#     while valor_verificado == False:
-#         try:
-#             tempo = int(input("\nQuanto tempo está com os sintomas? \n1- Menos de 1 semana; \n2- Entre 1 e 2 semanas; \nEntre 2 e 3 semanas; \n4- Entre 3 e 4 semanas; \n5- Por volta de 5 ou mais semanas; \n"))
-
-
-#         except ValueError:
-#             print("Entrada inválida. Por favor, digite um número inteiro para o tempo.")
-#             print("----------------------------------\n")
-#         else:
-#             if tempo >= 1 and tempo <= 5:
-#                 valor_verificado = True
-                
-#                 tempo_text = ''
-                
-#                 if(tempo == 1):
-#                     tempo_text = 'menos de 1 semana.'
-#                 elif(tempo == 2):
-#                     tempo_text = 'cerca de 1 e 2 semanas.'
-#                 elif(tempo == 3):
-#                     tempo_text = 'cerca de 2 e 3 semanas.'
-#                 elif(tempo == 4):
-#                     tempo_text = 'cerca de 3 e 4 semanas.'
-#                 else:
-#                     tempo_text = 'um tempo maior que 5 semanas'
-                
-#                 result = [tempo, tempo_text]
-#                 return result
-#             else: 
-#                 valor_verificado = False
-#                 print("Opção para o tempo deve ser entre 1 e 5. \nDigite Novamente| \n")
-#                 print("----------------------------------\n")
 
 def calculo_prioridade(valor_dor, valor_tempo, valor_desconforto):
     prioridade = ((valor_dor * 5) + (valor_tempo * 3) + (valor_desconforto) * 2) / 10
@@ -148,32 +79,8 @@ def insercao_requerimento(id_paciente_escolhido):
     print("Solicitação cadastrada com sucessor")
 
 
-# def insercao_requerimento(id_paciente_escolhido):
-#     print("\n" + "="*40)
-#     print(f"{'ABERTURA DE NOVO REQUERIMENTO':^40}")
-#     print("="*40,"\n")
-#     id_paciente = paciente.procurar_paciente(id_paciente_escolhido,0);
-#     nome_paciente = paciente.procurar_paciente(id_paciente_escolhido,1);
-    
-#     print("ID:", id_paciente, end='')
-#     print(", Nome:", nome_paciente)
-    
-#     valor_dor = dor()
-#     valor_desconforto = desconforto()
-#     valor_tempo, text_tempo = tempo()
-    
-#     comando=f"insert into requerimentos (id_medico, id_paciente, descricao, data_hora_abertura, data_hora_fechamento, status, prioridade) values (NULL, {id_paciente}, 'O paciente, {nome_paciente}, apresenta um desconforto de grau: {valor_desconforto} e uma dor de grau: {valor_dor} por {text_tempo}', '{data_br}', NULL,'aberto',{calculo_prioridade(valor_dor, valor_tempo, valor_desconforto)[1]}) "
-    
-#     conexao=imports.chamadaBanco.obtem_conexao()
-#     cursor=conexao.cursor()
-#     cursor.execute(comando)
-#     conexao.commit()
-#     print("Solicitação cadastrada com sucessor")
-
-
 #Visualização
 
-#verificar status
 
 def visualizar_requerimentos_relacionados(id_medico_escolhido,id_requerimento):
     print("\n" + "="*45)
@@ -205,13 +112,25 @@ def visualizar_requerimentos_relacionados(id_medico_escolhido,id_requerimento):
     if linhas == []: return False
 
     atual = 0 
-    print("\nNome:  |  RG:  |  id do Requerimento:  |  id do Médico:  |  id do Paciente:  |  Descrição:  |  Data de criação do Requerimento:  |  Data de finalização do Requerimento  |  Status:  |  Nível de prioridade: ")
-    print('------------------------------------------')
+    print("-" * 140)
+    print(f"{'Nome':<25}| "f"{'RG':<12}| "f"{'ID Req.':<8}| "f"{'ID Méd.':<8}| "f"{'ID Pac.':<8}| "f"{'Data Abertura':<20}| "f"{'Data Fechamento':<20}| "f"{'Status':<12}| "f"{'Prioridade':<12}")
+    print("-" * 140)
     while atual < len(linhas):
-        print(linhas[atual][0], "|", linhas[atual][1], "|", linhas[atual][2], "|", linhas[atual][3], "|", linhas[atual][4], "|", linhas[atual][5], "|", linhas[atual][6], "|", linhas[atual][7], "|", linhas[atual][8], "|", linhas[atual][9])
-        print('------------------------------------------')
+        print(
+            f"{linhas[atual][0]:<25}|",
+            f"{linhas[atual][1]:<12}| "
+            f"{linhas[atual][2]:<8}| "
+            f"{str(linhas[atual][3]):<8}| "
+            f"{linhas[atual][4]:<8}| "
+            f"{str(linhas[atual][6]):<20}| "
+            f"{str(linhas[atual][7]):<20}| "
+            f"{linhas[atual][8]:<12}| "
+            f"{linhas[atual][9]:<12}"
+        )
+        print(f"Descrição: {linhas[atual][5]}")
+        print("-" * 140)
 
-        atual +=1     
+        atual +=1       
     
     return linhas
 
@@ -232,23 +151,59 @@ def buscar_requerimento(id_requerimento,objetivo):
     else:
         print('\n--- Lista de todos os requerimentos finalizados ---\n')
         comando = f"SELECT * FROM requerimentos where data_hora_fechamento is not null"
-        
-    #apenas o requerimento especifico 
-    # else:
-    #     print('\n--- Buscar Requerimento Específico ---\n')
-    #     comando = f"SELECT * FROM requerimentos WHERE id_requerimento = {id_requerimento}"
-    
+
     conexao = imports.chamadaBanco.obtem_conexao()
     cursor = conexao.cursor()
     cursor.execute(comando)
     linhas = cursor.fetchall()
     
-    print("\nid do Requerimento:  |  id do Médico:  |  id do Paciente:  |  Descrição:  |  Data de criação do Requerimento:  |  Data de finalização do Requerimento  |  Status:  |  Nível de prioridade: ")
-    
+    print("-" * 140)
+    print(f"{'ID Req.':<10}| "f"{'ID Méd.':<10}| "f"{'ID Pac.':<10}| "f"{'Data Abertura':<20}| "f"{'Data Fechamento':<20}| "f"{'Status':<15}| "f"{'Prioridade':<15}" )
+    print("-" * 140)
+
     atual = 0 
     while atual < len(linhas):
-        print(linhas[atual][0], "|", linhas[atual][1], "|", linhas[atual][2], "|", linhas[atual][3], "|", linhas[atual][4], "|", linhas[atual][5], "|", linhas[atual][6], "|", linhas[atual][7])
-        print('------------------------------------------')
+        print(
+            f"{linhas[atual][0]:<10}| "
+            f"{str(linhas[atual][1]):<10}| "
+            f"{linhas[atual][2]:<10}| "
+            f"{str(linhas[atual][4]):<20}| "
+            f"{str(linhas[atual][5]):<20}| "
+            f"{linhas[atual][6]:<15}| "
+            f"{linhas[atual][7]:<15}"
+        )
+        print(f"Descrição: {linhas[atual][3]}")
+        print("-" * 140)
+        atual +=1 
+    
+    return linhas
+
+def visualizacao_simplificada():
+    
+    print('\n--- Lista de todos os requerimentos ---\n')
+    comando = f"SELECT req.id_requerimento, req.id_paciente, pac.nome,  req.id_medico, med.nome, req.data_hora_abertura FROM requerimentos req inner join paciente pac on pac.id_paciente = req.id_paciente inner join medico med on med.id_medico = req.id_medico"
+        
+    conexao = imports.chamadaBanco.obtem_conexao()
+    cursor = conexao.cursor()
+    cursor.execute(comando)
+    linhas = cursor.fetchall()
+    
+    print("-" * 111)
+    print(f"{'ID Req.':<10}| "f"{'ID Pac.':<10}| "f"{'Nome Pacientes':<25}| "f"{'ID Mec.':<10}| "f"{'Nome Médicos':<25}| "f"{'Data Abertura':<20}| " )
+    print("-" * 111)
+
+    atual = 0 
+    while atual < len(linhas):
+        print(
+            f"{linhas[atual][0]:<10}| "
+            f"{str(linhas[atual][1]):<10}| "
+            f"{linhas[atual][2]:<25}| "
+            f"{str(linhas[atual][3]):<10}| "
+            f"{linhas[atual][2]:<25}| "
+            f"{str(linhas[atual][5]):<20}| "
+        )
+        # print(f"Descrição: {linhas[atual][3]}")
+        print("-" * 111)
         atual +=1 
     
     return linhas
@@ -373,12 +328,27 @@ def listagem_requerimentos(opcao,filtro):
     cursor.execute(comando)
     linhas = cursor.fetchall()
     
-    print("\nNome:  |  RG:  |  id do Requerimento:  |  id do Médico:  |  id do Paciente:  |  Descrição:  |  Data de criação do Requerimento:  |  Data de finalização do Requerimento  |  Status:  |  Nível de prioridade: ")
-    print('------------------------------------------')    
+    print("-" * 180)
+    print(f"{'Nome':<25}| ""{'RG':<12}| "f"{'ID Req.':<8}| "f"{'ID Méd.':<8}| "f"{'ID Pac.':<8}| "f"{'Data Abertura':<20}| "f"{'Data Fechamento':<20}| "f"{'Status':<12}| "f"{'Prioridade':<12}"
+    )
+    print("-" * 180)  
     atual = 0 
     while atual < len(linhas):
-        print(linhas[atual][0], "|", linhas[atual][1], "|", linhas[atual][2], "|", linhas[atual][3], "|", linhas[atual][4], "|", linhas[atual][5], "|", linhas[atual][6], "|", linhas[atual][7])
-        print('------------------------------------------')
+        print(
+            f"{linhas[atual][0]:<25}| "
+            f"{linhas[atual][1]:<12}| "
+            f"{linhas[atual][2]:<8}| "
+            f"{str(linhas[atual][3]):<8}| "
+            f"{linhas[atual][4]:<8}| "
+            f"{str(linhas[atual][6]):<20}| "
+            f"{str(linhas[atual][7]):<20}| "
+            f"{linhas[atual][8]:<12}| "
+            f"{linhas[atual][9]:<12}"
+        )
+
+        print(f"Descrição: {linhas[atual][5]}")
+        print("-" * 180)
+
         atual +=1 
     
     return linhas
