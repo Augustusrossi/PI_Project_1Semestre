@@ -34,9 +34,7 @@ def nome():
             return nome + " " + sobrenome
         else:
             print("Entrada inválida! Digite apenas letras.")
-            continue
-    
-        
+            continue    
         
 def documento_rg():
     valor_verificado = False
@@ -104,10 +102,20 @@ def listar_pacientes():
     linhas=cursor.fetchall()
     
     atual = 0
-    print("ID |     Nome     |      RG      |    Telefone    |   Data de Cadastro   ")
+    print("-" * 90)
+    print(f"{'ID':<5}| {'Nome':<25}| {'RG':<12}| {'Telefone':<15}| {'Data de Cadastro':<25}")
+    print("-" * 90)
+    
+    
     while atual<len(linhas):
-        print(linhas[atual][0]," | ",linhas[atual][1]," | ",linhas[atual][2]," | ", linhas[atual][3]," | ",linhas[atual][4])
-        atual+=1    
+        print(
+            f"{linhas[atual][0]:<5}| "
+            f"{linhas[atual][1]:<25}| "
+            f"{linhas[atual][2]:<12}| "
+            f"{linhas[atual][3]:<15}| "
+            f"{linhas[atual][4]}"
+        ) 
+        atual+=1  
         
         
 def procurar_paciente(id,posicao_info):
@@ -141,11 +149,24 @@ def listar_historico(id_paciente):
     linhas=cursor.fetchall()
     
     atual = 0;
-    print("\nNome:  |  RG:  |  id do Requerimento:  |  id do Médico:  |  id do Paciente:  |  Descrição:  |  Data de criação do Requerimento:  |  Data de finalização do Requerimento  |  Status:  |  Nível de prioridade: ")
-    print('------------------------------------------')
+    print("-" * 180)
+    print(f"{'Nome':<25}| "f"{'RG':<12}| "f"{'ID Req.':<8}| "f"{'ID Méd.':<8}| "f"{'ID Pac.':<8}| "f"{'Data Abertura':<20}| "f"{'Data Fechamento':<20}| "f"{'Status':<12}| "f"{'Prioridade':<12}")
+    print("-" * 180)
     while atual < len(linhas):
-        print(linhas[atual][0], "|", linhas[atual][1], "|", linhas[atual][2], "|", linhas[atual][3], "|", linhas[atual][4], "|", linhas[atual][5], "|", linhas[atual][6], "|", linhas[atual][7], "|", linhas[atual][8], "|", linhas[atual][9])
-        print('------------------------------------------')
+        print(
+            f"{linhas[atual][0]:<25}| "
+            f"{linhas[atual][1]:<12}| "
+            f"{linhas[atual][2]:<8}| "
+            f"{str(linhas[atual][3]):<8}| "
+            f"{linhas[atual][4]:<8}| "
+            f"{str(linhas[atual][6]):<20}| "
+            f"{str(linhas[atual][7]):<20}| "
+            f"{linhas[atual][8]:<12}| "
+            f"{linhas[atual][9]:<12}"
+        )
+
+        print(f"Descrição: {linhas[atual][5]}")
+        print("-" * 180)
         atual += 1
         
 
@@ -162,12 +183,21 @@ def visualizar_status(id_requerimento):
     
     
     atual = 0 
-    print("\nNome:  |  RG:  |  id do Requerimento:  |  Status:  |  Nível de prioridade: ")
-    print('------------------------------------------')
+    print("-" * 90)
+    print(f"{'Nome':<25}| "f"{'RG':<12}| "f"{'ID Req.':<10}| "f"{'Status':<15}| "f"{'Prioridade':<15}")
+    print("-" * 90)
     while atual < len(linhas):
-        print(linhas[atual][0], "|", linhas[atual][1], "|", linhas[atual][2], "|", linhas[atual][3], "|", linhas[atual][4])
-        print('------------------------------------------')
+        print(
+            f"{linhas[atual][0]:<25}| "
+            f"{linhas[atual][1]:<12}| "
+            f"{linhas[atual][2]:<10}| "
+            f"{linhas[atual][3]:<15}| "
+            f"{linhas[atual][4]:<15}"
+        )
 
+        atual += 1
+
+        print("-" * 90)
         atual +=1     
     
     return linhas

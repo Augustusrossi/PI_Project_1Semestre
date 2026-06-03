@@ -41,7 +41,6 @@ menuPaciente = [
     'Visualizar status de um atendimento',\
     'Listar histórico dos atendimentos',\
     'Listar todos os pacientes cadastrados',\
-    'Listar pacientes baseado em um filtro',\
     'Procurar um paciente pelo id',\
     'Voltar'
 ]
@@ -52,6 +51,7 @@ menuMedico = [
     'Visualizar pacientes relacionados',\
     'Visualizar requerimentos relacionados',\
     'Associar médico a um requerimento',\
+    'Listar pacientes baseado em um filtro',\
     'Fechamento do requerimento de um paciente específico',\
     'Voltar'
 ]
@@ -73,14 +73,11 @@ def chamarMenuPaciente():
         elif opcao==5:
             listarPacientes()
         elif opcao==6:
-            listar_requerimentos_baseado_filtro()
-        elif opcao==7:
             procurarPacienteId()
-        else: # if opcao==8:
+        else: # if opcao==7:
             desejaSairDoPrograma=True
 
     print()        
-    print('PROGRAMA ENCERRADO; OBRIGADO POR USAR ESTE PROGRAMA!')
 
 def chamarMenuMedico():
     desejaSairDoPrograma=False
@@ -99,12 +96,13 @@ def chamarMenuMedico():
         elif opcao==5:
             relacionarMedicoRequerimento()
         elif opcao==6:
+            listar_requerimentos_baseado_filtro()
+        elif opcao==7:
             fecharRequerimento ()
         else: # if opcao=7:
             desejaSairDoPrograma=True
 
     print()        
-    print('PROGRAMA ENCERRADO; OBRIGADO POR USAR ESTE PROGRAMA!')
 
 
 #funções paciente:
@@ -213,95 +211,6 @@ def procurarPacienteId():
             else: 
                 print("\n==== ENTRADA INVÁLIDA ====\n Escolha entre 0 ou 1 apenas, por favor!")
                 continue
-
-def listar_requerimentos_baseado_filtro():
-    print('\n----------------------------------------')
-    print("     LISTAR PACIENTES COM FILTRO        ")
-    print('----------------------------------------\n')
-    
-        
-    while True:
-        try:
-            opcaoEscolhida = int(input("\n==== Digite: ====\n0 - Voltar para o menu do paciente\n1- Procurar Paciente\n=== Escolha: "))
-        except ValueError:
-            print("\n==== ENTRADA INVÁLIDA ====\n Digite apenas números, por favor!")
-            continue
-        else:
-            if opcaoEscolhida == 0:
-                break
-            elif opcaoEscolhida == 1:
-                while True:
-                    try: 
-                        print("Escolha um filtro para a listagem dos pacientes: \n0 - Voltar para menu de pacientes \n1 - Listar requerimentos baseado em prioridade \n2 - Listar requerimentos baseado no status\n")
-                        opcaoFiltro = int(input("Digite a opção do filtro que deseja: "))
-                    
-                    except ValueError:
-                        print("Valor inválido, apenas números são aceitos. \nDigite novamente, por favor!\n")
-                    else:
-                        if opcaoFiltro == 0:
-                            break
-                            
-                        elif opcaoFiltro == 1:
-                            
-                            while True:
-                                try: 
-                                    print("0 - Voltar para menu de filtros \n1- Sem urgência\n2- Urgente\n3- Crítico\n")
-                                    opcaoEscolhida = int(input("Digite quais requerimentos deseja visualizar: "))
-                                
-                                except ValueError:
-                                    print("Valor inválido, apenas números são aceitos. \nDigite novamente, por favor!\n")
-                                    continue
-                                    
-                                else:
-                                    print(opcaoEscolhida)
-                                    if opcaoEscolhida == 0:
-                                        break
-                                    elif opcaoEscolhida == 1:
-                                        filtro = 'Sem urgência'
-                                        return requerimentos.listagem_requerimentos(opcaoFiltro, filtro)
-                                    elif opcaoEscolhida == 2:
-                                        filtro = 'Urgente'
-                                        return requerimentos.listagem_requerimentos(opcaoFiltro, filtro)
-                                    elif opcaoEscolhida == 3:
-                                        filtro = 'Crítico'
-                                        return requerimentos.listagem_requerimentos(opcaoFiltro, filtro)
-                                    else:
-                                        print("Valor inválido, apenas os números 1, 2 ou 3, são aceitos. \nDigite novamente, por favor!\n")
-                                        continue
-                            
-                        elif opcaoFiltro == 2:
-                            while True:
-                                try: 
-                                    print("0 - Voltar para menu de filtros \n1- Aberto\n2- Em Andamento\n3- Finalizado\n")
-                                    opcaoEscolhida = int(input("Digite quais requerimentos deseja visualizar: "));
-                                except ValueError:
-                                    print("Valor inválido, apenas números são aceitos. \nDigite novamente, por favor!\n")
-                                    continue
-                                else:
-                                    print(opcaoEscolhida)
-
-                                    if opcaoEscolhida == 0:
-                                        break
-                                    elif opcaoEscolhida == 1:
-                                        filtro = 'aberto'
-                                        return requerimentos.listagem_requerimentos(opcaoFiltro, filtro)
-                                    elif opcaoEscolhida == 2:
-                                        filtro = 'andamento'
-                                        return requerimentos.listagem_requerimentos(opcaoFiltro, filtro)
-                                    elif opcaoEscolhida == 3:
-                                        filtro = 'Finalizado'
-                                        return requerimentos.listagem_requerimentos(opcaoFiltro, filtro)
-                                    else:
-                                        print("Valor inválido, apenas os números 1, 2 ou 3, são aceitos. \nDigite novamente, por favor!\n")
-                                        continue
-                        
-                        else:
-                            print("Valor inválido, apenas números 1 ou 2 são aceitos. \nDigite novamente, por favor!\n")
-                            continue
-
-            else: 
-                print("\n==== ENTRADA INVÁLIDA ====\n Escolha entre 0 ou 1 apenas, por favor!")
-                continue
         
 def visualizarStatus():
     print('\n----------------------------------------')
@@ -321,7 +230,7 @@ def visualizarStatus():
     
                 while True:
                     try:    
-                        requerimentos.buscar_requerimento(None, 'geral')
+                        requerimentos.visualizacao_simplificada()
                         id_req = int(input("Digite o id do requerimento que deseja verificar o status: "))
                         
                     except ValueError:
@@ -418,6 +327,96 @@ def visualizarMedicos():
                 print("\n==== ENTRADA INVÁLIDA ====\n Escolha entre 0 ou 1 apenas, por favor!")
                 continue
     
+
+def listar_requerimentos_baseado_filtro():
+    print('\n----------------------------------------')
+    print("     LISTAR PACIENTES COM FILTRO        ")
+    print('----------------------------------------\n')
+    
+        
+    while True:
+        try:
+            opcaoEscolhida = int(input("\n==== Digite: ====\n0 - Voltar para o menu do paciente\n1- Procurar Paciente\n=== Escolha: "))
+        except ValueError:
+            print("\n==== ENTRADA INVÁLIDA ====\n Digite apenas números, por favor!")
+            continue
+        else:
+            if opcaoEscolhida == 0:
+                break
+            elif opcaoEscolhida == 1:
+                while True:
+                    try: 
+                        print("Escolha um filtro para a listagem dos pacientes: \n0 - Voltar para menu de pacientes \n1 - Listar requerimentos baseado em prioridade \n2 - Listar requerimentos baseado no status\n")
+                        opcaoFiltro = int(input("Digite a opção do filtro que deseja: "))
+                    
+                    except ValueError:
+                        print("Valor inválido, apenas números são aceitos. \nDigite novamente, por favor!\n")
+                    else:
+                        if opcaoFiltro == 0:
+                            break
+                            
+                        elif opcaoFiltro == 1:
+                            
+                            while True:
+                                try: 
+                                    print("0 - Voltar para menu de filtros \n1- Sem urgência\n2- Urgente\n3- Crítico\n")
+                                    opcaoEscolhida = int(input("Digite quais requerimentos deseja visualizar: "))
+                                
+                                except ValueError:
+                                    print("Valor inválido, apenas números são aceitos. \nDigite novamente, por favor!\n")
+                                    continue
+                                    
+                                else:
+                                    print(opcaoEscolhida)
+                                    if opcaoEscolhida == 0:
+                                        break
+                                    elif opcaoEscolhida == 1:
+                                        filtro = 'Sem urgência'
+                                        return requerimentos.listagem_requerimentos(opcaoFiltro, filtro)
+                                    elif opcaoEscolhida == 2:
+                                        filtro = 'Urgente'
+                                        return requerimentos.listagem_requerimentos(opcaoFiltro, filtro)
+                                    elif opcaoEscolhida == 3:
+                                        filtro = 'Crítico'
+                                        return requerimentos.listagem_requerimentos(opcaoFiltro, filtro)
+                                    else:
+                                        print("Valor inválido, apenas os números 1, 2 ou 3, são aceitos. \nDigite novamente, por favor!\n")
+                                        continue
+                            
+                        elif opcaoFiltro == 2:
+                            while True:
+                                try: 
+                                    print("0 - Voltar para menu de filtros \n1- Aberto\n2- Em Andamento\n3- Finalizado\n")
+                                    opcaoEscolhida = int(input("Digite quais requerimentos deseja visualizar: "));
+                                except ValueError:
+                                    print("Valor inválido, apenas números são aceitos. \nDigite novamente, por favor!\n")
+                                    continue
+                                else:
+                                    print(opcaoEscolhida)
+
+                                    if opcaoEscolhida == 0:
+                                        break
+                                    elif opcaoEscolhida == 1:
+                                        filtro = 'aberto'
+                                        return requerimentos.listagem_requerimentos(opcaoFiltro, filtro)
+                                    elif opcaoEscolhida == 2:
+                                        filtro = 'andamento'
+                                        return requerimentos.listagem_requerimentos(opcaoFiltro, filtro)
+                                    elif opcaoEscolhida == 3:
+                                        filtro = 'Finalizado'
+                                        return requerimentos.listagem_requerimentos(opcaoFiltro, filtro)
+                                    else:
+                                        print("Valor inválido, apenas os números 1, 2 ou 3, são aceitos. \nDigite novamente, por favor!\n")
+                                        continue
+                        
+                        else:
+                            print("Valor inválido, apenas números 1 ou 2 são aceitos. \nDigite novamente, por favor!\n")
+                            continue
+
+            else: 
+                print("\n==== ENTRADA INVÁLIDA ====\n Escolha entre 0 ou 1 apenas, por favor!")
+                continue
+
 
 def visualizarPacientesRelacionados ():
     print('\n----------------------------------------')

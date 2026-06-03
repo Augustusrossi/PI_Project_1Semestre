@@ -12,4 +12,15 @@ def obtem_conexao ():
         )
     return obtem_conexao.conexao
 
+
+#def obtem_conexao ():
+#    if obtem_conexao.conexao == None:
+#       obtem_conexao.conexao = mysql.connector.connect( 
+#            host=f"{'127.0.0.1'}",\
+#            user=f"{'root'}",\
+#            password=f"{'123456'}",\
+#            database=f"{'sistemahospital'}"
+#        )
+#    return obtem_conexao.conexao
+
 obtem_conexao.conexao = None
